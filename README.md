@@ -1,4 +1,2 @@
 # CAP-Library
-testt
-abbbab
-s
+My Personal SAP CAP Library

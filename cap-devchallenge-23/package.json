@@ -6,6 +6,8 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@sap-cloud-sdk/http-client": "^3.3.0",
+    "@sap-cloud-sdk/resilience": "^3.3.0",
     "@sap/cds": "^7",
     "express": "^4"
   },
@@ -14,5 +16,13 @@
   },
   "scripts": {
     "start": "cds-serve"
+  },
+  "cds": {
+    "requires": {
+      "RemoteService": {
+        "kind": "odata",
+        "model": "srv/external/RemoteService"
+      }
+    }
   }
 }

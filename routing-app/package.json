@@ -1,0 +1,28 @@
+{
+  "name": "route_new",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^7",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1",
+    "@sap/ux-specification": "^1.108.10"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-route": "cds watch --open route/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-custom": "cds watch --open custom/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-free": "cds watch --open free/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "sapux": [
+    "app/route",
+    "app/custom",
+    "app/free",
+    "app/free"
+  ]
+}

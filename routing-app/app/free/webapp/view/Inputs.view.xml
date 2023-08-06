@@ -1,0 +1,174 @@
+<mvc:View
+    controllerName="free.controller.Inputs"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns:vbm="sap.ui.vbm"
+    displayBlock="true"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+        <HBox>
+            <Panel
+                width="auto"
+                height="100%"
+                class="sapUiResponsiveMargin"
+                
+            >
+                <NavContainer
+                    navigationFinished="onNavigationFinished"
+                    id="navCon"
+                    width="auto"
+                    height="34em"
+                    class="navContainerControl sapUiSmallMarginBottom"
+                >
+                    <Page
+                        id="p1"
+                        title="Vehicles"
+                    >
+                        <headerContent>
+                            <OverflowToolbar>
+                                <SearchField />
+                            </OverflowToolbar>
+                            <Button
+                                type="Emphasized"
+                                text="Customers"
+                                press="handleNav"
+                            >
+                                <customData>
+                                    <core:CustomData
+                                        key="target"
+                                        value="p2"
+                                    />
+                                </customData>
+                            </Button>
+                        </headerContent>
+                        <Table
+                            class="sapUiResponsiveMargin"
+                            width="auto"
+                            items="{/Vehicles}"
+                        >
+                            <columns>
+                                <Column>
+                                    <Text text="Vehicle" />
+                                </Column>
+                                <Column>
+                                    <Text text="Capacity" />
+                                </Column>
+                                <Column>
+                                    <Text text="Latitude" />
+                                </Column>
+                                <Column>
+                                    <Text text="Longitude" />
+                                </Column>
+                                <Column>
+                                    <Text text="Start Time" />
+                                </Column>
+                                <Column>
+                                    <Text text="End Time" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <ObjectIdentifier text="{vehicle}" />
+                                        <Text text="{capacity}" />
+                                        <Text text="{latitude}" />
+                                        <Text text="{longitude}" />
+                                        <Text text="{start}" />
+                                        <Text text="{end}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </Page>
+                    <Page
+                        id="p2"
+                        title="Customers"
+                    >
+                        <headerContent>
+                            <OverflowToolbar>
+                                <SearchField />
+                            </OverflowToolbar>
+                            <Button
+                                type="Emphasized"
+                                text="Vehicles"
+                                press="handleNav"
+                            >
+                                <customData>
+                                    <core:CustomData
+                                        key="target"
+                                        value="p1"
+                                    />
+                                </customData>
+                            </Button>
+                        </headerContent>
+                        <Table
+                            class="sapUiResponsiveMargin"
+                            width="auto"
+                            items="{/Customers}"
+                        >
+                            <columns>
+                                <Column>
+                                    <Text text="Customer" />
+                                </Column>
+                                <Column>
+                                    <Text text="Latitude" />
+                                </Column>
+                                <Column>
+                                    <Text text="Longitude" />
+                                </Column>
+                                <Column>
+                                    <Text text="Waiting" />
+                                </Column>
+                                <Column>
+                                    <Text text="Demand" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <ObjectIdentifier text="{customer}" />
+                                        <Text text="{latitude}" />
+                                        <Text text="{longitude}" />
+                                        <Text text="{waiting}" />
+                                        <Text text="{demand}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </Page>
+                </NavContainer>
+                <layoutData>
+                    <FlexItemData growFactor="2" />
+                </layoutData>
+            </Panel>
+            <Panel
+                width="auto"
+                height="100%"
+                class="sapUiResponsiveMargin"
+            >
+                <l:FixFlex>
+                    <l:flexContent>
+                        <vbm:AnalyticMap
+                            id="vbi"
+                            width="100%"
+                            height="100%"
+                            xmlns:l="sap.ui.layout"
+                            initialPosition="34;38;0"
+                            initialZoom="4"
+                            regionClick="onRegionClick"
+                            regionContextMenu="onRegionContextMenu"
+                        />
+                    </l:flexContent>
+                </l:FixFlex>
+                <layoutData>
+                    <FlexItemData growFactor="2" />
+                </layoutData>
+            </Panel>
+        </HBox>
+    </Page>
+</mvc:View>

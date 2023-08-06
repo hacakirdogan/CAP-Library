@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="RouteService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Customers" EntityType="RouteService.Customers">
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="Customers"/>
+                </EntitySet>
+                <EntitySet Name="Vehicles" EntityType="RouteService.Vehicles">
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="Vehicles"/>
+                </EntitySet>
+            </EntityContainer>
+            <EntityType Name="Customers">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="customer" Type="Edm.String"/>
+                <Property Name="latitude" Type="Edm.Decimal" Scale="variable"/>
+                <Property Name="longitude" Type="Edm.Decimal" Scale="variable"/>
+                <Property Name="waiting" Type="Edm.Int32"/>
+                <Property Name="demand" Type="Edm.Int32"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="RouteService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="RouteService.Customers"/>
+            </EntityType>
+            <EntityType Name="Vehicles">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="vehicle" Type="Edm.String"/>
+                <Property Name="capacity" Type="Edm.Int32"/>
+                <Property Name="latitude" Type="Edm.Decimal" Scale="variable"/>
+                <Property Name="longitude" Type="Edm.Decimal" Scale="variable"/>
+                <Property Name="start" Type="Edm.TimeOfDay"/>
+                <Property Name="end" Type="Edm.TimeOfDay"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="RouteService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="RouteService.Vehicles"/>
+            </EntityType>
+            <EntityType Name="DraftAdministrativeData">
+                <Key>
+                    <PropertyRef Name="DraftUUID"/>
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean"/>
+            </EntityType>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="RouteService.Customers"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="RouteService.Customers"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="RouteService.Vehicles"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="RouteService.Vehicles"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="RouteService.Customers"/>
+                <ReturnType Type="RouteService.Customers"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="RouteService.Vehicles"/>
+                <ReturnType Type="RouteService.Vehicles"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="RouteService.Customers"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="RouteService.Customers"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="RouteService.Vehicles"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="RouteService.Vehicles"/>
+            </Action>
+            <Annotations Target="RouteService.Customers">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Customer"/>
+                        <PropertyValue Property="TypeNamePlural" String="Customers"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="customer"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>customer</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="customer"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="latitude"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="longitude"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="waiting"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="demand"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="RouteService.EntityContainer/Customers">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="RouteService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="RouteService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="RouteService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="RouteService.Customers/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                </Annotations>
+                <Annotations Target="RouteService.Customers/createdBy">
+                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                    <Annotation Term="Core.Immutable" Bool="true"/>
+                    <Annotation Term="Core.Computed" Bool="true"/>
+                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                        </Annotations>
+                        <Annotations Target="RouteService.Customers/modifiedAt">
+                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                            <Annotation Term="Core.Computed" Bool="true"/>
+                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                            </Annotations>
+                            <Annotations Target="RouteService.Customers/modifiedBy">
+                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                <Annotation Term="Core.Computed" Bool="true"/>
+                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                    </Annotations>
+                                    <Annotations Target="RouteService.Customers/customer">
+                                        <Annotation Term="Common.Label" String="Customer"/>
+                                    </Annotations>
+                                    <Annotations Target="RouteService.Customers/latitude">
+                                        <Annotation Term="Common.Label" String="Latitude"/>
+                                    </Annotations>
+                                    <Annotations Target="RouteService.Customers/longitude">
+                                        <Annotation Term="Common.Label" String="Longitude"/>
+                                    </Annotations>
+                                    <Annotations Target="RouteService.Customers/waiting">
+                                        <Annotation Term="Common.Label" String="Waiting"/>
+                                    </Annotations>
+                                    <Annotations Target="RouteService.Customers/demand">
+                                        <Annotation Term="Common.Label" String="Demand"/>
+                                    </Annotations>
+                                    <Annotations Target="RouteService.Customers/IsActiveEntity">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="RouteService.Customers/HasActiveEntity">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="RouteService.Customers/HasDraftEntity">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="RouteService.Customers/DraftAdministrativeData">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="RouteService.EntityContainer/Vehicles">
+                                        <Annotation Term="Common.DraftRoot">
+                                            <Record Type="Common.DraftRootType">
+                                                <PropertyValue Property="ActivationAction" String="RouteService.draftActivate"/>
+                                                <PropertyValue Property="EditAction" String="RouteService.draftEdit"/>
+                                                <PropertyValue Property="PreparationAction" String="RouteService.draftPrepare"/>
+                                            </Record>
+                                        </Annotation>
+                                    </Annotations>
+                                    <Annotations Target="RouteService.Vehicles/IsActiveEntity">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="RouteService.Vehicles/HasActiveEntity">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="RouteService.Vehicles/HasDraftEntity">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="RouteService.Vehicles/DraftAdministrativeData">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="RouteService.DraftAdministrativeData">
+                                        <Annotation Term="Common.Label" String="{i18n>Draft_DraftAdministrativeData}"/>
+                                        </Annotations>
+                                        <Annotations Target="RouteService.DraftAdministrativeData/DraftUUID">
+                                            <Annotation Term="UI.Hidden" Bool="true"/>
+                                            <Annotation Term="Common.Label" String="{i18n>Draft_DraftUUID}"/>
+                                            </Annotations>
+                                            <Annotations Target="RouteService.DraftAdministrativeData/CreationDateTime">
+                                                <Annotation Term="Common.Label" String="{i18n>Draft_CreationDateTime}"/>
+                                                </Annotations>
+                                                <Annotations Target="RouteService.DraftAdministrativeData/CreatedByUser">
+                                                    <Annotation Term="Common.Label" String="{i18n>Draft_CreatedByUser}"/>
+                                                    </Annotations>
+                                                    <Annotations Target="RouteService.DraftAdministrativeData/DraftIsCreatedByMe">
+                                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                                        <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsCreatedByMe}"/>
+                                                        </Annotations>
+                                                        <Annotations Target="RouteService.DraftAdministrativeData/LastChangeDateTime">
+                                                            <Annotation Term="Common.Label" String="{i18n>Draft_LastChangeDateTime}"/>
+                                                            </Annotations>
+                                                            <Annotations Target="RouteService.DraftAdministrativeData/LastChangedByUser">
+                                                                <Annotation Term="Common.Label" String="{i18n>Draft_LastChangedByUser}"/>
+                                                                </Annotations>
+                                                                <Annotations Target="RouteService.DraftAdministrativeData/InProcessByUser">
+                                                                    <Annotation Term="Common.Label" String="{i18n>Draft_InProcessByUser}"/>
+                                                                    </Annotations>
+                                                                    <Annotations Target="RouteService.DraftAdministrativeData/DraftIsProcessedByMe">
+                                                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                        <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsProcessedByMe}"/>
+                                                                        </Annotations>
+                                                                    </Schema>
+                                                                </edmx:DataServices>
+                                                            </edmx:Edmx>

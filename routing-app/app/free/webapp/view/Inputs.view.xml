@@ -5,24 +5,25 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:l="sap.ui.layout"
     xmlns:vbm="sap.ui.vbm"
+    xmlns:html="http://www.w3.org/1999/xhtml"
     displayBlock="true"
 >
     <Page
         id="page"
         title="{i18n>title}"
+        enableScrolling="false"
     >
         <HBox>
             <Panel
                 width="auto"
                 height="100%"
                 class="sapUiResponsiveMargin"
-                
             >
                 <NavContainer
                     navigationFinished="onNavigationFinished"
                     id="navCon"
                     width="auto"
-                    height="34em"
+                    height="35em"
                     class="navContainerControl sapUiSmallMarginBottom"
                 >
                     <Page
@@ -151,20 +152,58 @@
                 height="100%"
                 class="sapUiResponsiveMargin"
             >
-                <l:FixFlex>
-                    <l:flexContent>
-                        <vbm:AnalyticMap
-                            id="vbi"
+                <NavContainer
+                    navigationFinished="onNavigationFinished"
+                    id="navConII"
+                    width="auto"
+                    height="35em"
+                    class="navContainerControl sapUiSmallMarginBottom"
+                >
+                    <Page
+                        id="p3"
+                        title="Route"
+                    >
+                        <headerContent>
+                            <Button
+                                type="Emphasized"
+                                text="List"
+                                press="handleNavII"
+                            >
+                                <customData>
+                                    <core:CustomData
+                                        key="target"
+                                        value="p4"
+                                    />
+                                </customData>
+                            </Button>
+                        </headerContent>
+                        <html:iframe
+                            src="./route.html"
+                            height="98%"
                             width="100%"
-                            height="100%"
-                            xmlns:l="sap.ui.layout"
-                            initialPosition="34;38;0"
-                            initialZoom="4"
-                            regionClick="onRegionClick"
-                            regionContextMenu="onRegionContextMenu"
                         />
-                    </l:flexContent>
-                </l:FixFlex>
+                    </Page>
+                    <Page
+                        id="p4"
+                        title="Route"
+                    >
+                        <headerContent>
+                            <Button
+                                type="Emphasized"
+                                text="Map"
+                                press="handleNavII"
+                            >
+                                <customData>
+                                    <core:CustomData
+                                        key="target"
+                                        value="p3"
+                                    />
+                                </customData>
+                            </Button>
+                        </headerContent>
+                        <Text text="Hello" />
+                    </Page>
+                </NavContainer>
                 <layoutData>
                     <FlexItemData growFactor="2" />
                 </layoutData>

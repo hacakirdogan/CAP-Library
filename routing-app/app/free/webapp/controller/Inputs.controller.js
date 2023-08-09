@@ -17,12 +17,14 @@ sap.ui.define(
           navCon.back();
         }
       },
-      onRegionClick: function (e) {
-        MessageToast.show("onRegionClick " + e.getParameter("code"));
-      },
-
-      onRegionContextMenu: function (e) {
-        MessageToast.show("onRegionContextMenu " + e.getParameter("code"));
+      handleNavII: function (evt) {
+        var navCon = this.byId("navConII");
+        var target = evt.getSource().data("target");
+        if (target) {
+          navCon.to(this.byId(target));
+        } else {
+          navCon.back();
+        }
       },
     });
   }

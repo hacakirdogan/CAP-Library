@@ -6,7 +6,7 @@ sap.ui.define(
   function (Controller, MessageToast) {
     "use strict";
 
-    return Controller.extend("free.controller.Inputs", {
+    return Controller.extend("free.controller.Main", {
       onInit: function () {},
       handleNav: function (evt) {
         var navCon = this.byId("navCon");

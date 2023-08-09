@@ -111,8 +111,8 @@
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "Inputs",
-          "viewName": "Inputs"
+          "viewId": "Main",
+          "viewName": "Main"
         }
       }
     },

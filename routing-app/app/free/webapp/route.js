@@ -18,6 +18,7 @@ var map = new H.Map(
 
 // map.addLayer(defaultLayers.vector.normal.traffic);
 // map.addLayer(defaultLayers.vector.normal.trafficincidents);
+map.setZoom(34, true);
 
 // add a resize listener to make sure that the map occupies the whole container
 map.addEventListener("resize", () => map.getViewPort().resize());

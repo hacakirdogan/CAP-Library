@@ -22,3 +22,11 @@ entity Vehicles : cuid {
     start     : Time;
     end       : Time;
 }
+
+entity Route : cuid {
+    vehicle   : String;
+    customer  : String;
+    arrival   : Time;
+    departure : Time;
+    distance  : Integer;
+}

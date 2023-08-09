@@ -57,7 +57,40 @@
                     </customData>
                 </Button>
             </headerContent>
-            <Text text="Hello" />
+            <Table
+                class="sapUiResponsiveMargin"
+                width="auto"
+                items="{/Route}"
+            >
+                <columns>
+                    <Column>
+                        <Text text="Vehicle" />
+                    </Column>
+                    <Column>
+                        <Text text="Customer" />
+                    </Column>
+                    <Column>
+                        <Text text="Arrival" />
+                    </Column>
+                    <Column>
+                        <Text text="Departure" />
+                    </Column>
+                    <Column>
+                        <Text text="Distance" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{vehicle}" />
+                            <Text text="{customer}" />
+                            <Text text="{arrival}" />
+                            <Text text="{departure}" />
+                            <Text text="{distance}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
         </Page>
     </NavContainer>
 </mvc:View>

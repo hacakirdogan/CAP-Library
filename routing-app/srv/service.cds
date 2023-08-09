@@ -5,4 +5,6 @@ service RouteService @(path: '/browse') {
     annotate Customers with @odata.draft.enabled;
     entity Vehicles  as projection on route.Vehicles;
     annotate Vehicles with @odata.draft.enabled;
+    entity Route     as projection on route.Route;
+    annotate Route with @odata.draft.enabled;
 }

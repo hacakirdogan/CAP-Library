@@ -37,6 +37,7 @@
                 </Button>
             </headerContent>
             <Table
+                id="vehicles_tab"
                 class="sapUiResponsiveMargin"
                 width="auto"
                 items="{/Vehicles}"

@@ -13,6 +13,13 @@
         title="{i18n>title}"
         enableScrolling="false"
     >
+        <headerContent>
+            <Button
+                type="Emphasized"
+                text="Route"
+                press="onRoute"
+            />
+        </headerContent>
         <HBox>
             <Panel
                 width="auto"

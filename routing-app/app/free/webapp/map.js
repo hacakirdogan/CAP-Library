@@ -1,6 +1,6 @@
 // Instantiate a map and platform object:
 var platform = new H.service.Platform({
-  apikey: "",
+  apikey: apikey,
 });
 
 // Get the default map types from the platform object:
@@ -21,11 +21,10 @@ var map = new H.Map(
 
 var mapEvents = new H.mapevents.MapEvents(map);
 var behavior = new H.mapevents.Behavior(mapEvents);
-
 var ui = H.ui.UI.createDefault(map, defaultLayers, "tr-TR");
 
 // Get an instance of the search service:
-var service = platform.getSearchService();
+// var service = platform.getSearchService();
 
 // Call the geocode method with the geocoding parameters,
 // the callback and an error callback function (called if a

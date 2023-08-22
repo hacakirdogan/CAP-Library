@@ -1,8 +1,6 @@
-let customers = {};
-
 // const apikey = "";
 
-const body = {
+let body = {
   fleet: {
     types: [
       {
@@ -32,7 +30,7 @@ const body = {
           },
         ],
         capacity: [30],
-        amount: 3,
+        amount: "",
       },
     ],
     profiles: [
@@ -47,20 +45,34 @@ const body = {
   },
 };
 
-async function getCustomers() {
+async function start() {
+  const vehicles = await getVehicles();
+  const customers = await getCustomers();
+  fillBody(vehicles, customers);
+  // planTour();
+}
+start();
+
+async function getVehicles() {
   try {
-    const response = await fetch("http://localhost:4004/browse/Customers");
-    customers = await response.json();
-    // console.log("Customers:", customers);
+    const response = await fetch("http://localhost:4004/browse/Vehicles");
+    return await response.json();
   } catch (error) {
     console.error("Error fetching data:", error);
   }
-  fillBody();
-  // planTour();
 }
-getCustomers();
 
-function fillBody() {
+async function getCustomers() {
+  try {
+    const response = await fetch("http://localhost:4004/browse/Customers");
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+async function fillBody(vehicles, customers) {
+  body.fleet.types[0].amount = vehicles.value.length;
   for (let i = 0; i < customers.value.length; i++) {
     body.plan.jobs.push({
       id: "job_" + i,
@@ -123,4 +135,4 @@ for (let j = 0; j < stops.length; j++) {
     });
   }
 }
-console.log(obj);
+// console.log(obj);

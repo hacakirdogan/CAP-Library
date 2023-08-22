@@ -28,6 +28,9 @@ sap.ui.define(
         //   .byId("vehicles_tab")
         //   .getAggregation("rows").length;
       },
+      onRoute: function () {
+        start();
+      },
       handleNav: function (evt) {
         var navCon = this.byId("navCon");
         var target = evt.getSource().data("target");

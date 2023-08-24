@@ -94,7 +94,6 @@ async function fillBody(vehicles, customers) {
       },
     });
   }
-  // console.log("body", body);
 }
 
 async function planTour() {
@@ -110,7 +109,7 @@ async function planTour() {
       }
     );
     const tourPlan = await response.json();
-    // localStorage.setItem("tourPlan", JSON.stringify(tourPlan));
+    localStorage.setItem("tourPlan", JSON.stringify(tourPlan));
     console.log("Optimized Tour Plan:", tourPlan);
   } catch (error) {
     console.error("Error planning tour:", error);
@@ -118,21 +117,29 @@ async function planTour() {
 }
 
 let tourPlan = JSON.parse(localStorage.getItem("tourPlan"));
-const obj = [];
+
 const stops = [];
 for (let i = 0; i < tourPlan.tours.length; i++) {
   stops[i] = tourPlan.tours[i].stops;
 }
+
+const waypoints = [];
 for (let j = 0; j < stops.length; j++) {
   for (let k = 0; k < stops[j].length; k++) {
-    // waypoints[j] = stops[j][k].location;
-    obj.push({
-      id: j,
-      location: {
-        lat: stops[j][k].location.lat,
-        lng: stops[j][k].location.lng,
-      },
-    });
+    if (waypoints[j] == undefined) {
+      waypoints[j] = [`${stops[j][k].location.lat},${stops[j][k].location.lng}`];
+    } else {
+      waypoints[j] = [].concat(
+        waypoints[j],
+        `${stops[j][k].location.lat},${stops[j][k].location.lng}`
+      );
+    }
   }
 }
-// console.log(obj);
+
+for (let i = 0; i < waypoints.length; i++) {
+  waypoints[i].pop();
+  waypoints[i].shift();
+}
+
+console.log(waypoints);

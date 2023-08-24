@@ -54,30 +54,6 @@ var ui = H.ui.UI.createDefault(map, defaultLayers, "tr-TR");
 //   });
 // }, alert);
 
-console.log(obj);
-
-// This array holds instances of H.map.Marker representing the route waypoints
-const waypoints = [
-  "41.03452671852723,29.071230402519824",
-  "41.04734756782421,29.077037704271138",
-  "41.04247539724414,29.039862392909274",
-  "41.030732234172014,29.02753503118113",
-  "41.014678139594,29.02772953263123",
-];
-
-const waypoints2 = [
-  "41.01822138763166,29.06607390005595",
-  "40.99901399332795,29.099975160763623",
-  "40.98667525730876,29.099536308929682",
-];
-
-const waypoints3 = [
-  "41.004892712749076,29.071340115166347",
-  "40.96919833214902,29.064976771139857",
-  "40.98650962121526,29.052908360385736",
-  "40.99718572244428,29.04308700198174",
-];
-
 // Create the parameters for the routing request:
 var routingParameters = {
   routingMode: "fast",
@@ -87,7 +63,7 @@ var routingParameters = {
   // The end point of the route:
   destination: "41.02031822963801,29.04687657961709",
   // defines multiple waypoints
-  via: new H.service.Url.MultiValueQueryParameter(waypoints),
+  via: new H.service.Url.MultiValueQueryParameter(waypoints[0]),
   // Include the route shape in the response
   return: "polyline",
 };
@@ -100,7 +76,7 @@ var routingParameters2 = {
   // The end point of the route:
   destination: "41.02031822963801,29.04687657961709",
   // defines multiple waypoints
-  via: new H.service.Url.MultiValueQueryParameter(waypoints2),
+  via: new H.service.Url.MultiValueQueryParameter(waypoints[1]),
   // Include the route shape in the response
   return: "polyline",
 };
@@ -113,7 +89,7 @@ var routingParameters3 = {
   // The end point of the route:
   destination: "41.02031822963801,29.04687657961709",
   // defines multiple waypoints
-  via: new H.service.Url.MultiValueQueryParameter(waypoints3),
+  via: new H.service.Url.MultiValueQueryParameter(waypoints[2]),
   // Include the route shape in the response
   return: "polyline",
 };

@@ -16,7 +16,7 @@
         <headerContent>
             <Button
                 type="Emphasized"
-                text="Route"
+                text="Optimize Route"
                 press="onRoute"
             />
         </headerContent>

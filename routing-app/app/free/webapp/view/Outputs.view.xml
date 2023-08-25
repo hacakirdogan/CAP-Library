@@ -60,7 +60,14 @@
             <Table
                 class="sapUiResponsiveMargin"
                 width="auto"
-                items="{/Route}"
+                items="{
+                    path: '/Route',
+                    sorter: [{
+                        path: 'vehicle'
+                    }, {
+                        path: 'arrival'
+                    }]
+                }"
             >
                 <columns>
                     <Column>

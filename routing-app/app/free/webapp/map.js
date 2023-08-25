@@ -23,76 +23,24 @@ var mapEvents = new H.mapevents.MapEvents(map);
 var behavior = new H.mapevents.Behavior(mapEvents);
 var ui = H.ui.UI.createDefault(map, defaultLayers, "tr-TR");
 
-// Get an instance of the search service:
-// var service = platform.getSearchService();
-
-// Call the geocode method with the geocoding parameters,
-// the callback and an error callback function (called if a
-// communication error occurs):
-// service.geocode({
-//   q: 'Bahçelievler, Bosna Blv No: 140, 34680 Üsküdar/İstanbul'
-// }, (result) => {
-//   // Add a marker for each location found
-//   result.items.forEach((item) => {
-//     map.addObject(new H.map.Marker(item.position));
-//   });
-// }, alert);
-
-// Call the reverse geocode method with the geocoding parameters,
-// the callback and an error callback function (called if a
-// communication error occurs):
-// service.reverseGeocode({
-//   at: '41.04247539724414,29.039862392909274,150'
-// }, (result) => {
-//   result.items.forEach((item) => {
-//     // Assumption: ui is instantiated
-//     // Create an InfoBubble at the returned location with
-//     // the address as its contents:
-//     ui.addBubble(new H.ui.InfoBubble(item.position, {
-//       content: item.address.label
-//     }));
-//   });
-// }, alert);
-
 // Create the parameters for the routing request:
-var routingParameters = {
-  routingMode: "fast",
-  transportMode: "car",
-  // The start point of the route:
-  origin: "41.02031822963801,29.04687657961709",
-  // The end point of the route:
-  destination: "41.02031822963801,29.04687657961709",
-  // defines multiple waypoints
-  via: new H.service.Url.MultiValueQueryParameter(waypoints[0]),
-  // Include the route shape in the response
-  return: "polyline",
-};
-
-var routingParameters2 = {
-  routingMode: "fast",
-  transportMode: "car",
-  // The start point of the route:
-  origin: "41.02031822963801,29.04687657961709",
-  // The end point of the route:
-  destination: "41.02031822963801,29.04687657961709",
-  // defines multiple waypoints
-  via: new H.service.Url.MultiValueQueryParameter(waypoints[1]),
-  // Include the route shape in the response
-  return: "polyline",
-};
-
-var routingParameters3 = {
-  routingMode: "fast",
-  transportMode: "car",
-  // The start point of the route:
-  origin: "41.02031822963801,29.04687657961709",
-  // The end point of the route:
-  destination: "41.02031822963801,29.04687657961709",
-  // defines multiple waypoints
-  via: new H.service.Url.MultiValueQueryParameter(waypoints[2]),
-  // Include the route shape in the response
-  return: "polyline",
-};
+let routingParameters = [];
+for (let i = 0; i < waypoints.length; i++) {
+  const origin = waypoints[i].shift();
+  const destination = waypoints[i].pop();
+  routingParameters[i] = {
+    routingMode: "fast",
+    transportMode: "car",
+    // The start point of the route:
+    origin: origin,
+    // The end point of the route:
+    destination: destination,
+    // defines multiple waypoints
+    via: new H.service.Url.MultiValueQueryParameter(waypoints[i]),
+    // Include the route shape in the response
+    return: "polyline",
+  };
+}
 
 const green = '"#008000"';
 const blue = '"#0000FF"';
@@ -261,13 +209,13 @@ var router = platform.getRoutingService(null, 8);
 // Call calculateRoute() with the routing parameters,
 // the callback and an error callback function (called if a
 // communication error occurs):
-router.calculateRoute(routingParameters, onResult, function (error) {
+router.calculateRoute(routingParameters[0], onResult, function (error) {
   alert(error.message);
 });
-router.calculateRoute(routingParameters2, onResult2, function (error) {
+router.calculateRoute(routingParameters[1], onResult2, function (error) {
   alert(error.message);
 });
-router.calculateRoute(routingParameters3, onResult3, function (error) {
+router.calculateRoute(routingParameters[2], onResult3, function (error) {
   alert(error.message);
 });
 

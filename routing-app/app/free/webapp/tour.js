@@ -127,7 +127,9 @@ const waypoints = [];
 for (let j = 0; j < stops.length; j++) {
   for (let k = 0; k < stops[j].length; k++) {
     if (waypoints[j] == undefined) {
-      waypoints[j] = [`${stops[j][k].location.lat},${stops[j][k].location.lng}`];
+      waypoints[j] = [
+        `${stops[j][k].location.lat},${stops[j][k].location.lng}`,
+      ];
     } else {
       waypoints[j] = [].concat(
         waypoints[j],
@@ -136,10 +138,3 @@ for (let j = 0; j < stops.length; j++) {
     }
   }
 }
-
-for (let i = 0; i < waypoints.length; i++) {
-  waypoints[i].pop();
-  waypoints[i].shift();
-}
-
-console.log(waypoints);

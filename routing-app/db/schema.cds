@@ -11,12 +11,10 @@ entity Customers : cuid, managed {
     latitude  : Decimal;
     longitude : Decimal;
     waiting   : Integer;
-    demand    : Integer;
 }
 
 entity Vehicles : cuid {
     vehicle   : String;
-    capacity  : Integer;
     latitude  : Decimal;
     longitude : Decimal;
     start     : Time;

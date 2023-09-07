@@ -4,7 +4,7 @@ let body = {
   fleet: {
     types: [
       {
-        id: "d3e7bb8d20c5",
+        id: "myVehicleType",
         profile: "normal_car",
         costs: {
           fixed: 50.0,
@@ -29,7 +29,7 @@ let body = {
             },
           },
         ],
-        capacity: [30],
+        capacity: [],
         amount: "",
       },
     ],
@@ -73,6 +73,9 @@ async function getCustomers() {
 
 async function fillBody(vehicles, customers) {
   body.fleet.types[0].amount = vehicles.value.length;
+  body.fleet.types[0].capacity = [
+    Math.ceil(customers.value.length / vehicles.value.length),
+  ];
   for (let i = 0; i < customers.value.length; i++) {
     body.plan.jobs.push({
       id: "job_" + i,
@@ -88,7 +91,7 @@ async function fillBody(vehicles, customers) {
                 duration: customers.value[i].waiting * 60,
               },
             ],
-            demand: [customers.value[i].demand],
+            demand: [1],
           },
         ],
       },

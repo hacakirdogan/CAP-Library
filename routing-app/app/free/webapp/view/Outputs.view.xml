@@ -45,6 +45,10 @@
         >
             <headerContent>
                 <Button
+                    icon="sap-icon://excel-attachment"
+                    press="onExport"
+                />
+                <Button
                     type="Emphasized"
                     text="Map"
                     press="handleNavII"
@@ -58,6 +62,7 @@
                 </Button>
             </headerContent>
             <Table
+                id="routeTable"
                 class="sapUiResponsiveMargin"
                 width="auto"
                 items="{

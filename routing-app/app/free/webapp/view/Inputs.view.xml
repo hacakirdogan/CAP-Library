@@ -40,14 +40,16 @@
                 id="vehicles_tab"
                 class="sapUiResponsiveMargin"
                 width="auto"
-                items="{/Vehicles}"
+                items="{
+                    path: '/Vehicles',
+                    sorter: [{
+                        path: 'vehicle'
+                    }]
+                }"
             >
                 <columns>
                     <Column>
                         <Text text="Vehicle" />
-                    </Column>
-                    <Column>
-                        <Text text="Capacity" />
                     </Column>
                     <Column>
                         <Text text="Latitude" />
@@ -66,7 +68,6 @@
                     <ColumnListItem>
                         <cells>
                             <ObjectIdentifier text="{vehicle}" />
-                            <Text text="{capacity}" />
                             <Text text="{latitude}" />
                             <Text text="{longitude}" />
                             <Text text="{start}" />
@@ -100,7 +101,12 @@
             <Table
                 class="sapUiResponsiveMargin"
                 width="auto"
-                items="{/Customers}"
+                items="{
+                    path: '/Customers',
+                    sorter: [{
+                        path: 'customer'
+                    }]
+                }"
             >
                 <columns>
                     <Column>
@@ -115,9 +121,6 @@
                     <Column>
                         <Text text="Waiting" />
                     </Column>
-                    <Column>
-                        <Text text="Demand" />
-                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem>
@@ -126,7 +129,6 @@
                             <Text text="{latitude}" />
                             <Text text="{longitude}" />
                             <Text text="{waiting}" />
-                            <Text text="{demand}" />
                         </cells>
                     </ColumnListItem>
                 </items>

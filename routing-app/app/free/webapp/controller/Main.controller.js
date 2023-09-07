@@ -3,12 +3,16 @@ sap.ui.define(
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
     "sap/ui/model/odata/v4/ODataModel",
+    "sap/ui/export/library",
+    "sap/ui/export/Spreadsheet",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, MessageToast, ODataModel) {
+  function (Controller, MessageToast, ODataModel, exportLibrary, Spreadsheet) {
     "use strict";
+
+    var EdmType = exportLibrary.EdmType;
 
     return Controller.extend("free.controller.Main", {
       onInit: function () {
@@ -19,15 +23,8 @@ sap.ui.define(
         // const oBinding = oList.getBinding("items");
         // console.log(oBinding);
       },
-      onBeforeRendering: function () {
-        // var table = sap.ui.getCore().byId("vehicles_tab");
-        // var rows = table.getRows();
-      },
-      onAfterRendering: function () {
-        // var totalRows = this.getView()
-        //   .byId("vehicles_tab")
-        //   .getAggregation("rows").length;
-      },
+      onBeforeRendering: function () {},
+      onAfterRendering: function () {},
       onRoute: function () {
         start();
       },
@@ -48,6 +45,61 @@ sap.ui.define(
         } else {
           navCon.back();
         }
+      },
+      createColumnConfig: function () {
+        var aCols = [];
+
+        aCols.push({
+          property: "vehicle",
+          type: EdmType.String,
+        });
+
+        aCols.push({
+          property: "customer",
+          type: EdmType.String,
+        });
+
+        aCols.push({
+          property: "arrival",
+          type: EdmType.Time,
+        });
+
+        aCols.push({
+          property: "departure",
+          type: EdmType.Time,
+        });
+
+        aCols.push({
+          property: "distance",
+          type: EdmType.Number,
+        });
+
+        return aCols;
+      },
+      onExport: function () {
+        var aCols, oRowBinding, oSettings, oSheet, oTable;
+
+        if (!this._oTable) {
+          this._oTable = this.byId("routeTable");
+        }
+
+        oTable = this._oTable;
+        oRowBinding = oTable.getBinding("items");
+        aCols = this.createColumnConfig();
+
+        oSettings = {
+          workbook: {
+            columns: aCols,
+            hierarchyLevel: "Level",
+          },
+          dataSource: oRowBinding,
+          fileName: "routeTable.xlsx",
+        };
+
+        oSheet = new Spreadsheet(oSettings);
+        oSheet.build().finally(function () {
+          oSheet.destroy();
+        });
       },
     });
   }

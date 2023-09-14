@@ -1,4 +1,4 @@
-const apikey = "1kIwvXFc2n1p6Xvfpj0sxVqbStL2In5Uk1FkXs6rXGg";
+const apikey = "";
 
 let body = {
   fleet: {

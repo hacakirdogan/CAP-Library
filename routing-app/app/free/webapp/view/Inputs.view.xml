@@ -21,7 +21,7 @@
         >
             <headerContent>
                 <OverflowToolbar>
-                    <SearchField />
+                    <SearchField search=".onFilterVehicles" />
                 </OverflowToolbar>
                 <Button
                     type="Emphasized"
@@ -83,7 +83,7 @@
         >
             <headerContent>
                 <OverflowToolbar>
-                    <SearchField />
+                    <SearchField search=".onFilterCustomers" />
                 </OverflowToolbar>
                 <Button
                     type="Emphasized"
@@ -99,6 +99,7 @@
                 </Button>
             </headerContent>
             <Table
+                id="customers_tab"
                 class="sapUiResponsiveMargin"
                 width="auto"
                 items="{

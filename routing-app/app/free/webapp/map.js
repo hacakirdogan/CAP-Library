@@ -1,6 +1,6 @@
 // Instantiate a map and platform object:
 var platform = new H.service.Platform({
-  apikey: apikey,
+  apikey: '1kIwvXFc2n1p6Xvfpj0sxVqbStL2In5Uk1FkXs6rXGg',
 });
 
 // Get the default map types from the platform object:
@@ -25,7 +25,7 @@ var ui = H.ui.UI.createDefault(map, defaultLayers, "tr-TR");
 
 // Create the parameters for the routing request:
 let routingParameters = [];
-for (let i = 0; i < waypoints.length; i++) {
+for (let i = 1; i < waypoints.length; i++) {
   const origin = waypoints[i].shift();
   const destination = waypoints[i].pop();
   routingParameters[i] = {
@@ -60,6 +60,7 @@ function getMarkerIcon(id, color) {
     },
   });
 }
+
 function addMarker(position, id, color) {
   const marker = new H.map.Marker(position, {
     data: {
@@ -118,6 +119,8 @@ function addInfoBubble(map) {
     black
   );
 }
+
+addInfoBubble(map);
 
 // Define a callback function to process the routing response:
 var onResult = function (result) {
@@ -209,14 +212,12 @@ var router = platform.getRoutingService(null, 8);
 // Call calculateRoute() with the routing parameters,
 // the callback and an error callback function (called if a
 // communication error occurs):
-router.calculateRoute(routingParameters[0], onResult, function (error) {
+router.calculateRoute(routingParameters[1], onResult, function (error) {
   alert(error.message);
 });
-router.calculateRoute(routingParameters[1], onResult2, function (error) {
+router.calculateRoute(routingParameters[2], onResult2, function (error) {
   alert(error.message);
 });
-router.calculateRoute(routingParameters[2], onResult3, function (error) {
+router.calculateRoute(routingParameters[3], onResult3, function (error) {
   alert(error.message);
 });
-
-addInfoBubble(map);

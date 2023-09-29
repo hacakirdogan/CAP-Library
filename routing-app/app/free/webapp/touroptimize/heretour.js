@@ -14,17 +14,17 @@ let body = {
         shifts: [
           {
             start: {
-              time: "2023-08-19T08:00:00Z",
+              time: "",
               location: {
-                lat: 41.02031822963801,
-                lng: 29.04687657961709,
+                lat: "",
+                lng: "",
               },
             },
             end: {
-              time: "2023-08-19T17:00:00Z",
+              time: "",
               location: {
-                lat: 41.02031822963801,
-                lng: 29.04687657961709,
+                lat: "",
+                lng: "",
               },
             },
           },
@@ -49,9 +49,10 @@ async function start() {
   const vehicles = await getVehicles();
   const customers = await getCustomers();
   fillBody(vehicles, customers);
+  console.log(body);
   // planTour();
 }
-start();
+// start();
 
 async function getVehicles() {
   try {
@@ -76,6 +77,13 @@ async function fillBody(vehicles, customers) {
   body.fleet.types[0].capacity = [
     Math.ceil(customers.value.length / vehicles.value.length),
   ];
+  body.fleet.types[0].shifts[0].start.time = "2023-08-19T09:00:00Z";
+  body.fleet.types[0].shifts[0].start.location.lat = vehicles.value[0].latitude;
+  body.fleet.types[0].shifts[0].start.location.lng =
+    vehicles.value[0].longitude;
+  body.fleet.types[0].shifts[0].end.time = "2023-08-19T18:00:00Z";
+  body.fleet.types[0].shifts[0].end.location.lat = vehicles.value[0].latitude;
+  body.fleet.types[0].shifts[0].end.location.lng = vehicles.value[0].longitude;
   for (let i = 0; i < customers.value.length; i++) {
     body.plan.jobs.push({
       id: "job_" + i,
@@ -141,3 +149,6 @@ for (let j = 0; j < stops.length; j++) {
     }
   }
 }
+
+
+console.log(waypoints)

@@ -10,7 +10,7 @@ entity Customers : cuid, managed {
     customer  : String;
     latitude  : Decimal;
     longitude : Decimal;
-    waiting   : Integer;
+    cluster   : Integer;
 }
 
 entity Vehicles : cuid {

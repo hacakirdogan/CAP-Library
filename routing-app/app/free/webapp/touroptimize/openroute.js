@@ -1,14 +1,16 @@
-const apiKey = "5b3ce3597851110001cf6248fd1b31cb9abf413d92dd16ccb5248f55";
+const apiKey = "";
 
 let body = {
   vehicles: [],
   jobs: [],
+  options: { g: true },
 };
 
 async function start() {
   const vehicles = await getVehicles();
   const customers = await getCustomers();
   fillBody(vehicles, customers);
+  console.log(body);
   openRoute();
 }
 start();
@@ -32,23 +34,25 @@ async function getCustomers() {
 }
 
 async function fillBody(vehicles, customers) {
-  for (let i = 0; i < vehicles.value.length; i++) {
+  for (let i = 0; i < 2; i++) {
     body.vehicles.push({
       id: Number(vehicles.value[i].vehicle),
       profile: "driving-car",
-      capacity: [Math.ceil(customers.value.length / vehicles.value.length)],
+      capacity: [Math.ceil(customers.value.length / 8)],
       time_window: [1694509200, 1694538000],
       start: [vehicles.value[i].longitude, vehicles.value[i].latitude],
       end: [vehicles.value[i].longitude, vehicles.value[i].latitude],
     });
   }
   for (let i = 0; i < customers.value.length; i++) {
-    body.jobs.push({
-      id: Number(customers.value[i].customer),
-      service: customers.value[i].waiting * 60,
-      amount: [1],
-      location: [customers.value[i].longitude, customers.value[i].latitude],
-    });
+    if ((customers.value[i].cluster == 3)) {
+      body.jobs.push({
+        id: Number(customers.value[i].customer),
+        service: 600,
+        amount: [1],
+        location: [customers.value[i].longitude, customers.value[i].latitude],
+      });
+    }
   }
 }
 
@@ -68,6 +72,7 @@ async function openRoute() {
       }
     );
     const openTour = await response.json();
+    console.log(openTour);
     localStorage.setItem("openTour", JSON.stringify(openTour));
   } catch (error) {
     console.error("Error planning tour:", error);
